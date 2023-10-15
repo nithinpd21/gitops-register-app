@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: register-app-deployment
+  name: project1-elevendevops-deployment
+  labels:
+    app: my-app1
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: register-app
+      app: my-app1
   template:
     metadata:
       labels:
-        app: register-app
+        app: my-app1
     spec:
+      imagePullSecrets:
+      - name: my-registry-key
       containers:
-        - name: register-app
-          image: nithinpd/register-app-pipeline:1.0.0-7
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
-          ports:
-            - containerPort: 8080
+      - name: npd-projet-container
+        image: nithinpd/elevendevops:tagname
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
